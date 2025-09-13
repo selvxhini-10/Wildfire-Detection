@@ -183,16 +183,18 @@ const AIImageClassifier = () => {
           <div className="bg-gray-900/50 p-8 rounded-2xl border border-orange-500/20 backdrop-blur-sm mb-8 max-w-md w-full">
             <h2 className="text-xl font-semibold mb-4">Results</h2>
             <ul className="space-y-2">
-              {results.map((det, idx) => (
-                <li key={idx} className="flex justify-between items-center">
+              {results[0] && results[0].confidence > 0.5 ? (
+                <li className="flex justify-between items-center">
                   <span className="font-bold bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 text-transparent bg-clip-text">
-                    {det.label}
+                    {results[0].label}
                   </span>
                   <span className="text-gray-300">
-                    {(det.confidence * 100).toFixed(2)}%
+                    {(results[0].confidence * 100).toFixed(2)}%
                   </span>
                 </li>
-              ))}
+              ) : (
+                <li className="text-gray-400 italic text-center">No wildfire</li>
+              )}
             </ul>
           </div>
         )}

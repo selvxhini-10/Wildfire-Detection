@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from ultralytics import YOLO
 from PIL import Image
 import io
+#also python multipart needed
 
 app = FastAPI()
 
@@ -14,7 +15,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-model = YOLO("best.pt")  
+model = YOLO("../backend/best.pt")  
 
 @app.post("/ai_classifier")
 async def ai_classifier(file: UploadFile = File(...)):
