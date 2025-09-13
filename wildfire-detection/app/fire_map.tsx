@@ -3,6 +3,9 @@
 // app/page.tsx (for App Router) or pages/index.tsx (for Pages Router)
 import React, { useState, useEffect } from 'react';
 import { AlertTriangle, Flame, Eye, EyeOff, RefreshCw, MapPin } from 'lucide-react';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
 
 const CanadianFireMap = () => {
   // Sample fire data - in your real app, this would come from your ML backend
@@ -30,26 +33,24 @@ const CanadianFireMap = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // Helper for marker color
   const getIntensityColor = (intensity, confidence) => {
     if (confidence < 0.7 && !showLowConfidence) return 'transparent';
-    
     switch (intensity) {
-      case 'high': return '#ef4444';
-      case 'medium': return '#f97316';
-      case 'low': return '#eab308';
-      default: return '#6b7280';
+      case 'high': return 'red';
+      case 'medium': return 'orange';
+      case 'low': return 'yellow';
+      default: return 'gray';
     }
   };
 
-  const getIntensitySize = (intensity, confidence) => {
-    if (confidence < 0.7 && !showLowConfidence) return 0;
-    
-    switch (intensity) {
-      case 'high': return 20;
-      case 'medium': return 15;
-      case 'low': return 10;
-      default: return 8;
-    }
+  // Custom Leaflet icon for fire markers
+  const getFireIcon = (intensity, confidence) => {
+    const color = getIntensityColor(intensity, confidence);
+    return L.divIcon({
+      className: '',
+      html: `<div style="width:18px;height:18px;border-radius:50%;background:${color};border:2px solid white;"></div>`
+    });
   };
 
   const filteredFires = showLowConfidence 
@@ -109,88 +110,32 @@ const CanadianFireMap = () => {
       <div className="flex flex-1">
         {/* Map Area */}
         <div className="flex-1 relative bg-gray-800">
-          {/* Simplified Canada Map SVG */}
-          <svg 
-            viewBox="0 0 1000 600" 
-            className="w-full h-full"
-            style={{ background: 'linear-gradient(180deg, #1e293b 0%, #0f172a 100%)' }}
-          >
-            {/* Simplified Canada outline */}
-            <path
-              d="M 50 300 Q 100 250 200 280 L 300 260 Q 400 240 500 250 L 600 245 Q 700 240 800 260 L 900 280 Q 950 320 900 380 L 800 400 Q 700 420 600 410 L 500 415 Q 400 420 300 410 L 200 405 Q 100 380 50 340 Z"
-              fill="#374151"
-              stroke="#4b5563"
-              strokeWidth="2"
+          <MapContainer center={[56.1304, -106.3468]} zoom={4} style={{ height: '100%', width: '100%' }}>
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            
-            {/* Province boundaries - simplified */}
-            <line x1="200" y1="260" x2="200" y2="420" stroke="#4b5563" strokeWidth="1" opacity="0.5" />
-            <line x1="300" y1="250" x2="300" y2="430" stroke="#4b5563" strokeWidth="1" opacity="0.5" />
-            <line x1="500" y1="240" x2="500" y2="440" stroke="#4b5563" strokeWidth="1" opacity="0.5" />
-            <line x1="700" y1="240" x2="700" y2="420" stroke="#4b5563" strokeWidth="1" opacity="0.5" />
-
-            {/* Fire markers */}
-            {filteredFires.map(fire => {
-              // Convert lat/lng to SVG coordinates (more accurate Canadian mapping)
-              // Canada spans roughly: 141°W to 52°W longitude, 83°N to 42°N latitude
-              const x = ((fire.lng + 141) / (52 + 141)) * 800 + 100; // Map longitude to x
-              const y = ((83 - fire.lat) / (83 - 42)) * 400 + 150; // Map latitude to y (inverted)
-              const size = getIntensitySize(fire.intensity, fire.confidence);
-              const color = getIntensityColor(fire.intensity, fire.confidence);
-
-              return (
-                <g key={fire.id}>
-                  {/* Pulsing animation for high intensity fires */}
-                  {fire.intensity === 'high' && (
-                    <circle
-                      cx={x}
-                      cy={y}
-                      r={size + 5}
-                      fill={color}
-                      opacity="0.3"
-                    >
-                      <animate
-                        attributeName="r"
-                        values={`${size + 5};${size + 15};${size + 5}`}
-                        dur="2s"
-                        repeatCount="indefinite"
-                      />
-                      <animate
-                        attributeName="opacity"
-                        values="0.3;0.1;0.3"
-                        dur="2s"
-                        repeatCount="indefinite"
-                      />
-                    </circle>
-                  )}
-                  
-                  {/* Main fire marker */}
-                  <circle
-                    cx={x}
-                    cy={y}
-                    r={size}
-                    fill={color}
-                    stroke="white"
-                    strokeWidth="2"
-                    className="cursor-pointer hover:stroke-yellow-300"
-                    onClick={() => setSelectedFire(fire)}
-                  />
-                  
-                  {/* Confidence indicator */}
-                  <text
-                    x={x}
-                    y={y + size + 15}
-                    textAnchor="middle"
-                    className="text-xs fill-white"
-                    style={{ fontSize: '10px' }}
-                  >
-                    {Math.round(fire.confidence * 100)}%
-                  </text>
-                </g>
-              );
-            })}
-          </svg>
-
+            {filteredFires.map(fire => (
+              <Marker
+                key={fire.id}
+                position={[fire.lat, fire.lng]}
+                icon={getFireIcon(fire.intensity, fire.confidence)}
+                eventHandlers={{
+                  click: () => setSelectedFire(fire)
+                }}
+              >
+                <Popup>
+                  <div>
+                    <strong>Fire #{fire.id}</strong><br />
+                    <span>Intensity: {fire.intensity}</span><br />
+                    <span>Confidence: {Math.round(fire.confidence * 100)}%</span><br />
+                    <span>Location: {fire.lat.toFixed(4)}, {fire.lng.toFixed(4)}</span><br />
+                    <span>Detected: {formatTimestamp(fire.timestamp)}</span>
+                  </div>
+                </Popup>
+              </Marker>
+            ))}
+          </MapContainer>
           {/* Legend */}
           <div className="absolute bottom-4 left-4 bg-gray-800 bg-opacity-90 p-4 rounded-lg">
             <h3 className="text-sm font-semibold mb-2">Fire Intensity</h3>
