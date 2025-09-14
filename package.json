@@ -1,6 +1,10 @@
 {
   "dependencies": {
     "leaflet": "^1.9.4",
-    "react-leaflet": "^5.0.0"
+    "next": "^15.5.3",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-leaflet": "^5.0.0",
+    "twilio": "^5.9.0"
   }
 }

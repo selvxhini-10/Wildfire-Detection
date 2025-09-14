@@ -3,8 +3,11 @@
 import React, { useEffect, useRef } from "react";
 import Link from "next/link";
 import { Typewriter } from "react-simple-typewriter";
+import Head from "next/head";
+
 
 const HomePage = () => {
+  
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
    // Particle animation for ember/sparks effect
@@ -68,6 +71,7 @@ const HomePage = () => {
       };
     }, []);
   return (
+  
     <div className="min-h-screen bg-black text-white overflow-hidden relative">
 
       {/* Navbar */}
@@ -466,6 +470,7 @@ const HomePage = () => {
         </div>
       </div>
     </div>
+
   );
 };
 
