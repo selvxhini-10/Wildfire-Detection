@@ -202,9 +202,6 @@ const AIImageClassifier = () => {
           )}
         </div>
       </div>
-
-      
-
     </div>
   );
 };
