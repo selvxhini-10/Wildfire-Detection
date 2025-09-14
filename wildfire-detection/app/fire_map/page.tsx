@@ -9,7 +9,14 @@ import Link from "next/link";
 
 
 const CanadianFireMap = () => {
-    const [fireData, setFireData] = useState([
+    type Fire = {
+        id: number;
+        lat: number;
+        lng: number;
+        confidence: number;
+        timestamp: string;
+    };
+    const [fireData, setFireData] = useState<Fire[]>([
         { id: 1, lat: 60.7212, lng: -135.0568, confidence: 0.92, timestamp: '2024-09-13T14:30:00Z' },
         { id: 2, lat: 53.5461, lng: -113.4938, confidence: 0.87, timestamp: '2024-09-13T13:45:00Z' },
         { id: 3, lat: 49.2827, lng: -123.1207, confidence: 0.74, timestamp: '2024-09-13T12:15:00Z' },
@@ -17,7 +24,7 @@ const CanadianFireMap = () => {
         { id: 5, lat: 52.1332, lng: -106.6700, confidence: 0.68, timestamp: '2024-09-13T10:05:00Z' },
     ]);
 
-    const [selectedFire, setSelectedFire] = useState(null);
+    const [selectedFire, setSelectedFire] = useState<Fire | null>(null);
     const [showLowConfidence, setShowLowConfidence] = useState(true);
     const [lastUpdated, setLastUpdated] = useState(new Date());
     const [isLoading, setIsLoading] = useState(false);
@@ -136,7 +143,7 @@ const CanadianFireMap = () => {
                                 position={[fire.lat, fire.lng]}
                                 icon={getFireIcon(fire.confidence)}
                                 eventHandlers={{
-                                    click: () => setSelectedFire(fire)
+                                    click: () => setSelectedFire(fire as Fire)
                                 }}
                             >
                                 <Popup>
