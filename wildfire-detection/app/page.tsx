@@ -410,8 +410,8 @@ const HomePage = () => {
                 Upcoming Features 
               </span>
             </h2>
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center mt-20 relative z-30">
-          <div className="flex justify-center md:order-2">
+       <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-46 items-center mt-20 relative z-30">
+<div className="flex justify-center md:order-2">
             <img src="/rover.jpg" alt="Rover Upgrades" className="rounded-xl shadow-lg w-full max-h-96" />
           </div>
           <div className="space-y-4 md:order-1">
@@ -422,50 +422,9 @@ const HomePage = () => {
               We also aim to improve the AI wildfire classifier for faster and more accurate detection by incorporating more satellite imagery and advanced training techniques.
             
             </p>
-            
-            {/* Technology Icons Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-6">
-              {/* Python */}
-  <div className="flex flex-col items-center group">
-    <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-yellow-500 rounded-xl flex items-center justify-center mb-2 transition-transform duration-300 group-hover:scale-110">
-      {/* Python SVG */}
-      <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor">
-        {/* ...python icon path... */}
-      </svg>
-    </div>
-    <span className="text-sm font-semibold text-white mt-2">Python</span>
-  </div>
-  {/* YOLO AI */}
-  <div className="flex flex-col items-center group">
-    <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl flex items-center justify-center mb-2 transition-transform duration-300 group-hover:scale-110">
-      {/* YOLO SVG */}
-      <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor">
-        {/* ...YOLO icon path... */}
-      </svg>
-    </div>
-    <span className="text-sm font-semibold text-white mt-2">YOLO AI</span>
-  </div>
-  {/* Sensors */}
-  <div className="flex flex-col items-center group">
-    <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-blue-500 rounded-xl flex items-center justify-center mb-2 transition-transform duration-300 group-hover:scale-110">
-      {/* Sensor SVG */}
-      <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor">
-        {/* ...sensor icon path... */}
-      </svg>
-    </div>
-    <span className="text-sm font-semibold text-white mt-2">Sensors</span>
-  </div>
-  {/* FastAPI */}
-  <div className="flex flex-col items-center group">
-    <div className="w-16 h-16 bg-gradient-to-br from-teal-500 to-green-500 rounded-xl flex items-center justify-center mb-2 transition-transform duration-300 group-hover:scale-110">
-      {/* FastAPI SVG */}
-      <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor">
-        {/* ...fastapi icon path... */}
-      </svg>
-    </div>
-    <span className="text-sm font-semibold text-white mt-2">FastAPI</span>
-  </div>
-  </div>
+          
+
+
           </div>
         </div>
       </div>
