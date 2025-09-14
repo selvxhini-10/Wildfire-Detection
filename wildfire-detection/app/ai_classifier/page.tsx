@@ -7,6 +7,16 @@ interface Detection {
   label: string;
   confidence: number;
 }
+const sendSMS = async () => {
+  const response = await fetch("/api/bulksms", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ phone: "1234567890", message: "Wildfire detected!" }),
+  });
+
+  const data = await response.json();
+  console.log(data);
+};
 
 const AIImageClassifier = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -202,6 +212,8 @@ const AIImageClassifier = () => {
           )}
         </div>
       </div>
+
+
     </div>
   );
 };
