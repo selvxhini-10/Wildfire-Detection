@@ -2,9 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { Flame, Eye, EyeOff, RefreshCw, MapPin } from 'lucide-react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
-import L from 'leaflet';
+
+import dynamic from 'next/dynamic';
+const MapView = dynamic(() => import('./MapView'), { ssr: false });
+
 import Link from "next/link";
 
 
@@ -53,6 +54,9 @@ const CanadianFireMap = () => {
 
     // Custom Leaflet icon for fire markers
     const getFireIcon = (confidence: number) => {
+        if (typeof window === 'undefined') return undefined;
+        // Import Leaflet only on client
+        const L = require('leaflet');
         const color = getConfidenceColor(confidence);
         const size = getConfidenceSize(confidence);
         return L.divIcon({
@@ -132,31 +136,13 @@ const CanadianFireMap = () => {
             <div className="flex flex-1">
                 {/* Map Area */}
                 <div className="flex-1 relative bg-gray-800">
-                    <MapContainer center={[56.1304, -106.3468]} zoom={4} style={{ height: '100%', width: '100%' }}>
-                        <TileLayer
-                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        <MapView
+                            fireData={fireData}
+                            selectedFire={selectedFire}
+                            setSelectedFire={setSelectedFire}
+                            filteredFires={filteredFires}
+                            formatTimestamp={formatTimestamp}
                         />
-                        {filteredFires.map(fire => (
-                            <Marker
-                                key={fire.id}
-                                position={[fire.lat, fire.lng]}
-                                icon={getFireIcon(fire.confidence)}
-                                eventHandlers={{
-                                    click: () => setSelectedFire(fire as Fire)
-                                }}
-                            >
-                                <Popup>
-                                    <div>
-                                        <strong>Fire #{fire.id}</strong><br />
-                                        <span>Confidence: {Math.round(fire.confidence * 100)}%</span><br />
-                                        <span>Location: {fire.lat.toFixed(4)}, {fire.lng.toFixed(4)}</span><br />
-                                        <span>Detected: {formatTimestamp(fire.timestamp)}</span>
-                                    </div>
-                                </Popup>
-                            </Marker>
-                        ))}
-                    </MapContainer>
                 </div>
 
                 {/* Side Panel */}
