@@ -73,7 +73,7 @@ const HomePage = () => {
       {/* Navbar */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-orange-500/20">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="text-2xl font-bold bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">
+          <div className="text-2xl font-extrabold bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">
             HELIO
           </div>
           <div className="hidden md:flex space-x-8">
@@ -313,7 +313,7 @@ const HomePage = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-bold mb-4 text-white">AI-Powered Wildfire Detection</h3>
+                <h3 className="text-xl font-bold mb-4 text-white">Machine Learning Wildfire Detection</h3>
                 <p className="text-gray-300 leading-relaxed mb-6">Using a YOLOv8 model trained on satellite imagery, our system can quickly classify images to identify wildfires.</p>
               
               </div>
@@ -408,14 +408,60 @@ const HomePage = () => {
             </h2>
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center mt-20 relative z-30">
           <div className="flex justify-center md:order-2">
-            <img src="/rover.jpg" alt="Rover Upgrades" className="rounded-xl shadow-lg w-full max-w-md" />
+            <img src="/rover.jpg" alt="Rover Upgrades" className="rounded-xl shadow-lg w-full max-h-96" />
           </div>
           <div className="space-y-4 md:order-1">
            
-            <p className="text-gray-300 text-lg leading-relaxed">
-              Enhancing the rover with ultrasonic, temperature, humidity, and smoke sensors. A radio communication feature will allow people without WiFi to receive alerts during wildfires.
+               <p className="text-gray-300 text-lg leading-relaxed">
+              Hardware components such as temperature sensors, humidity sensors, and communication modules collect real-time environmental data. Machine learning models then analyze the collected data to detect early wildfire indicators, predict fire behavior patterns, and coordinate emergency response systems.
+            In the future, we plan to upgrade the rover with ultrasonic, temperature, humidity, and smoke sensors. A radio communication feature will allow people without WiFi to receive alerts during wildfires.
               We also aim to improve the AI wildfire classifier for faster and more accurate detection by incorporating more satellite imagery and advanced training techniques.
+            
             </p>
+            
+            {/* Technology Icons Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-6">
+              {/* Python */}
+  <div className="flex flex-col items-center group">
+    <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-yellow-500 rounded-xl flex items-center justify-center mb-2 transition-transform duration-300 group-hover:scale-110">
+      {/* Python SVG */}
+      <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor">
+        {/* ...python icon path... */}
+      </svg>
+    </div>
+    <span className="text-sm font-semibold text-white mt-2">Python</span>
+  </div>
+  {/* YOLO AI */}
+  <div className="flex flex-col items-center group">
+    <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl flex items-center justify-center mb-2 transition-transform duration-300 group-hover:scale-110">
+      {/* YOLO SVG */}
+      <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor">
+        {/* ...YOLO icon path... */}
+      </svg>
+    </div>
+    <span className="text-sm font-semibold text-white mt-2">YOLO AI</span>
+  </div>
+  {/* Sensors */}
+  <div className="flex flex-col items-center group">
+    <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-blue-500 rounded-xl flex items-center justify-center mb-2 transition-transform duration-300 group-hover:scale-110">
+      {/* Sensor SVG */}
+      <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor">
+        {/* ...sensor icon path... */}
+      </svg>
+    </div>
+    <span className="text-sm font-semibold text-white mt-2">Sensors</span>
+  </div>
+  {/* FastAPI */}
+  <div className="flex flex-col items-center group">
+    <div className="w-16 h-16 bg-gradient-to-br from-teal-500 to-green-500 rounded-xl flex items-center justify-center mb-2 transition-transform duration-300 group-hover:scale-110">
+      {/* FastAPI SVG */}
+      <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor">
+        {/* ...fastapi icon path... */}
+      </svg>
+    </div>
+    <span className="text-sm font-semibold text-white mt-2">FastAPI</span>
+  </div>
+  </div>
           </div>
         </div>
       </div>

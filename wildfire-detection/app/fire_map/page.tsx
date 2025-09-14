@@ -5,6 +5,8 @@ import { Flame, Eye, EyeOff, RefreshCw, MapPin } from 'lucide-react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+import Link from "next/link";
+
 
 const CanadianFireMap = () => {
     const [fireData, setFireData] = useState([
@@ -68,20 +70,37 @@ const CanadianFireMap = () => {
     };
 
     return (
+        
         <div className="w-full h-screen bg-gray-900 text-white flex flex-col">
             {/* Header */}
-            <div className="bg-gray-800 p-4 shadow-lg">
-                <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                        <Flame className="h-8 w-8 text-orange-500" />
-                        <div>
-                            <h1 className="text-2xl font-bold">Canadian Forest Fire Monitor</h1>
-                            <p className="text-gray-400 text-sm">
-                                Real-time satellite fire detection • Last updated: {lastUpdated.toLocaleTimeString()}
-                            </p>
-                        </div>
-                    </div>
-                    <div className="flex items-center space-x-4">
+             {/* Navbar */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-orange-500/20">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+          <div className="text-2xl font-extrabold bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">
+            HELIO
+          </div>
+          <div className="hidden md:flex space-x-8">
+            {["Home", "Fire Map", "AI Classifier"].map((name, idx) => (
+              <Link key={idx} href={name === "Home" ? "/" : `/${name.toLowerCase().replace(" ", "_")}`}>
+                <span className="relative text-sm font-medium uppercase tracking-wider cursor-pointer transition-all duration-300 hover:text-orange-400 hover:drop-shadow-[0_0_10px_rgba(255,165,0,0.8)]">
+                  {name}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </nav>
+
+            {/* Title Section */}
+            <section className="pt-24 pb-6 bg-gray-900 text-center">
+                <div className="max-w-3xl mx-auto">
+                    <h1 className="text-2xl md:text-5xl font-bold bg-gradient-to-r from-orange-400 via-red-500 to-orange-600 bg-clip-text text-transparent mb-2 flex items-center justify-center gap-2">
+                        Canadian Forest Fire Monitor
+                    </h1>
+                    <p className="text-gray-400 text-lg">
+                        Real-time satellite fire detection &bull; Last updated: {lastUpdated.toLocaleTimeString()}
+                    </p>
+                    <div className="flex items-center justify-center gap-4 mt-4">
                         <button
                             onClick={() => setShowLowConfidence(!showLowConfidence)}
                             className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors ${
@@ -101,7 +120,7 @@ const CanadianFireMap = () => {
                         </button>
                     </div>
                 </div>
-            </div>
+            </section>
 
             <div className="flex flex-1">
                 {/* Map Area */}

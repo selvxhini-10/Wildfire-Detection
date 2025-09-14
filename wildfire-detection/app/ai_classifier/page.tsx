@@ -123,32 +123,20 @@ const AIImageClassifier = () => {
       {/* Navbar */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-orange-500/20">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="text-2xl font-bold bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">
-            WILDFIRE DETECTION
+          <div className="text-2xl font-extrabold bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">
+            HELIO
           </div>
           <div className="hidden md:flex space-x-8">
-            <Link href="/">
-              <span className="relative text-sm font-medium uppercase tracking-wider hover:text-orange-400 transition-all duration-300 cursor-pointer group">
-                Home
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-orange-400 to-red-500 transition-all duration-300 group-hover:w-full"></span>
-              </span>
-            </Link>
-            <Link href="/fire_map">
-              <span className="relative text-sm font-medium uppercase tracking-wider hover:text-orange-400 transition-all duration-300 cursor-pointer group">
-                Fire Map
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-orange-400 to-red-500 transition-all duration-300 group-hover:w-full"></span>
-              </span>
-            </Link>
-            <Link href="/ai_classifier">
-              <span className="relative text-sm font-medium uppercase tracking-wider hover:text-orange-400 transition-all duration-300 cursor-pointer group">
-                AI Classifier
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-orange-400 to-red-500 transition-all duration-300 group-hover:w-full"></span>
-              </span>
-            </Link>
+            {["Home", "Fire Map", "AI Classifier"].map((name, idx) => (
+              <Link key={idx} href={name === "Home" ? "/" : `/${name.toLowerCase().replace(" ", "_")}`}>
+                <span className="relative text-sm font-medium uppercase tracking-wider cursor-pointer transition-all duration-300 hover:text-orange-400 hover:drop-shadow-[0_0_10px_rgba(255,165,0,0.8)]">
+                  {name}
+                </span>
+              </Link>
+            ))}
           </div>
         </div>
       </nav>
-
       {/* Hero / Form */}
       <div className="relative flex flex-col items-center justify-center px-4 pt-28 z-10">
         <h1 className="text-5xl md:text-6xl font-bold text-center mb-8 bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 text-transparent bg-clip-text">
@@ -214,6 +202,9 @@ const AIImageClassifier = () => {
           )}
         </div>
       </div>
+
+      
+
     </div>
   );
 };
