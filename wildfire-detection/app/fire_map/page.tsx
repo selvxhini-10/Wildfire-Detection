@@ -18,12 +18,23 @@ const CanadianFireMap = () => {
         timestamp: string;
     };
     const [fireData, setFireData] = useState<Fire[]>([
-        { id: 1, lat: 60.7212, lng: -135.0568, confidence: 0.92, timestamp: '2024-09-13T14:30:00Z' },
-        { id: 2, lat: 53.5461, lng: -113.4938, confidence: 0.87, timestamp: '2024-09-13T13:45:00Z' },
-        { id: 3, lat: 49.2827, lng: -123.1207, confidence: 0.74, timestamp: '2024-09-13T12:15:00Z' },
-        { id: 4, lat: 45.5017, lng: -73.5673, confidence: 0.95, timestamp: '2024-09-13T11:20:00Z' },
-        { id: 5, lat: 52.1332, lng: -106.6700, confidence: 0.68, timestamp: '2024-09-13T10:05:00Z' },
-    ]);
+  { id: 1, lat: 60.7212, lng: -135.0568, confidence: 0.92, timestamp: '2024-09-13T14:30:00Z' }, // Yukon
+  { id: 2, lat: 53.5461, lng: -113.4938, confidence: 0.87, timestamp: '2024-09-13T13:45:00Z' }, // Edmonton
+  { id: 3, lat: 49.2827, lng: -123.1207, confidence: 0.74, timestamp: '2024-09-13T12:15:00Z' }, // Vancouver
+  { id: 4, lat: 45.5017, lng: -73.5673, confidence: 0.95, timestamp: '2024-09-13T11:20:00Z' }, // Montreal
+  { id: 5, lat: 52.1332, lng: -106.6700, confidence: 0.68, timestamp: '2024-09-13T10:05:00Z' }, // Saskatoon
+
+  // 🔥 West Coast
+  { id: 6, lat: 48.4284, lng: -123.3656, confidence: 0.81, timestamp: '2024-09-13T09:50:00Z' }, // Victoria, BC
+  { id: 7, lat: 54.3150, lng: -130.3200, confidence: 0.76, timestamp: '2024-09-13T09:10:00Z' }, // Prince Rupert, BC
+
+  // 🔥 East Coast
+  { id: 8, lat: 44.6488, lng: -63.5752, confidence: 0.89, timestamp: '2024-09-13T08:40:00Z' }, // Halifax, NS
+  { id: 9, lat: 47.5615, lng: -52.7126, confidence: 0.93, timestamp: '2024-09-13T07:55:00Z' }, // St. John’s, NL
+  { id: 10, lat: 46.2382, lng: -63.1311, confidence: 0.71, timestamp: '2024-09-13T07:20:00Z' }, // Charlottetown, PEI
+  { id: 11, lat: 45.2733, lng: -66.0633, confidence: 0.79, timestamp: '2024-09-13T06:45:00Z' }, // Saint John, NB
+]);
+
 
     const [selectedFire, setSelectedFire] = useState<Fire | null>(null);
     const [showLowConfidence, setShowLowConfidence] = useState(true);
